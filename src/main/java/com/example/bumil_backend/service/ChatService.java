@@ -9,8 +9,9 @@ import com.example.bumil_backend.dto.chat.response.ChatCreateResponse;
 import com.example.bumil_backend.dto.chat.response.ChatListResponse;
 import com.example.bumil_backend.entity.ChatRoom;
 import com.example.bumil_backend.entity.DateFilter;
-import com.example.bumil_backend.entity.Tag;
 import com.example.bumil_backend.entity.Users;
+import com.example.bumil_backend.enums.ChatTags;
+import com.example.bumil_backend.enums.Tag;
 import com.example.bumil_backend.repository.ChatRoomRepository;
 import com.example.bumil_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class ChatService {
 
         ChatRoom chatRoom = ChatRoom.builder()
                 .title(request.getTitle())
-                .tag(Tag.IN_PROGRESS)
+                .tag(ChatTags.IN_PROGRESS)
                 .author(user)
                 .build();
 
@@ -94,7 +95,7 @@ public class ChatService {
                 .orElseThrow(() -> new ResourceNotFoundException("채팅방을 찾을 수 없습니다."));
 
         // 이미 처리된 채팅이면 예외
-        if (chatRoom.getTag() != Tag.IN_PROGRESS) {
+        if (chatRoom.getTag() != ChatTags.IN_PROGRESS) {
             throw new BadRequestException("이미 처리된 채팅방입니다.");
         }
 
@@ -168,7 +169,7 @@ public class ChatService {
             throw new BadRequestException("채팅 설정 변경 권한이 없습니다.");
         }
 
-        if (chatRoom.getTag() == Tag.IN_PROGRESS) {
+        if (chatRoom.getTag() == ChatTags.IN_PROGRESS) {
             throw new BadRequestException("채팅 처리가 완료된 후에만 설정할 수 있습니다.");
         }
 
