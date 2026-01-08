@@ -1,5 +1,7 @@
 package com.example.bumil_backend.entity;
 
+import com.example.bumil_backend.enums.ChatTags;
+import com.example.bumil_backend.enums.Tag;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +26,7 @@ public class ChatRoom {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Tag tag;
+    private ChatTags tag;
 
     @Column(nullable = false)
     private String title;
@@ -85,7 +87,7 @@ public class ChatRoom {
     }
 
 
-    public void setTag(Tag tag) {
+    public void setTag(ChatTags tag) {
         this.tag = tag;
     }
 }

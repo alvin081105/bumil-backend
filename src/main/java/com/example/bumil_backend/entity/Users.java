@@ -35,7 +35,6 @@ public class Users {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default
-    @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
     @Column(nullable = false)
