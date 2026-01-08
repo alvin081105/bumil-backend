@@ -40,7 +40,7 @@ public class ChatController {
         return ApiResponse.ok(chatService.getPublicChatList(dateFilter, tag), "공개 채팅 목록 조회에 성공하였습니다.");
     }
 
-    @GetMapping
+    @GetMapping("/me")
     public ResponseEntity<ApiResponse<List<ChatListResponse>>> getUserChatListResponse(
             @RequestParam(value = "datefilter", required = false) String dateFilter,
             @RequestParam(value = "tag", required = false) String tag
