@@ -3,6 +3,7 @@ package com.example.bumil_backend.controller;
 import com.example.bumil_backend.common.ApiResponse;
 import com.example.bumil_backend.dto.chat.request.ChatCloseRequest;
 import com.example.bumil_backend.dto.chat.request.ChatCreateRequest;
+import com.example.bumil_backend.dto.chat.request.ChatSettingRequest;
 import com.example.bumil_backend.dto.chat.response.ChatCreateResponse;
 import com.example.bumil_backend.dto.chat.response.PublicChatListResponse;
 import com.example.bumil_backend.service.ChatService;
@@ -47,4 +48,13 @@ public class ChatController {
         chatService.closeChat(request);
         return ApiResponse.ok(null, "채팅 상태가 변경되었습니다.");
     }
+
+    @PatchMapping("/setting")
+    public ResponseEntity<ApiResponse<Void>> updateChatSetting(
+            @RequestBody @Valid ChatSettingRequest request
+    ) {
+        chatService.updateChatSetting(request);
+        return ApiResponse.ok(null, "채팅 설정이 변경되었습니다.");
+    }
+
 }
