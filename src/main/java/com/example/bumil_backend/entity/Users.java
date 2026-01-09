@@ -75,6 +75,14 @@ public class Users {
     @Builder.Default
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ChatRoomReaction> reactions = new ArrayList<>();
+
+
 
     @PrePersist
     public void prePersist(){
