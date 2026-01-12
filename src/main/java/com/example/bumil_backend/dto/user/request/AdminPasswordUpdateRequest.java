@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AdminPasswordUpdateRequest {
 
-    @NotBlank(message = "새비밀번호를 입력해주세요.")
-    private String newPassword;
+
 }

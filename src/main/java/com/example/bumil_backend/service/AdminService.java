@@ -90,26 +90,16 @@ public class AdminService {
     @Transactional
     public UserUpdateResponse patchUser(Long userId, UserUpdateRequest request) {
         securityUtils.getCurrentAdmin();
+
         Users patchUser = userRepository.findByIdAndIsDeletedFalse(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 유저입니다."));
+
         if (request.getEmail() != null) {
             patchUser.setEmail(request.getEmail());
         }
         if (request.getName() != null) {
             patchUser.setName(request.getName());
         }
-        userRepository.save(patchUser);
-        return UserUpdateResponse.from(patchUser);
-    }
-
-    // 유저 비밀번호 변경
-    @Transactional
-    public UpdateUserPasswordResponse updateUserPassword(Long userId, AdminPasswordUpdateRequest request) {
-        securityUtils.getCurrentAdmin();
-
-        Users patchUser = userRepository.findByIdAndIsDeletedFalse(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 유저입니다."));
-
         if (passwordEncoder.matches(request.getNewPassword(), patchUser.getPassword())) {
             throw new BadRequestException("새 비밀번호는 현재 비밀번호와 달라야 합니다.");
         }
@@ -118,9 +108,8 @@ public class AdminService {
 
         patchUser.updatePassword(newHashedPassword);
 
-        return UpdateUserPasswordResponse.builder()
-                .userId(patchUser.getId())
-                .build();
+        userRepository.save(patchUser);
+        return UserUpdateResponse.from(patchUser);
     }
 
     @Transactional(readOnly = true)

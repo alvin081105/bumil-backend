@@ -55,14 +55,6 @@ public class AdminController {
         return ApiResponse.ok(result, "수정되었습니다.");
     }
 
-    @PatchMapping("/password/{userId}")
-    @Operation(summary = "회원 비밀번호 변경", description = "회원 비밀번호 변경 시 사용하는 API 입니다.")
-    public ResponseEntity<ApiResponse<UpdateUserPasswordResponse>> updateUserPassword
-            (@PathVariable Long userId, @RequestBody AdminPasswordUpdateRequest request) {
-        UpdateUserPasswordResponse result = adminService.updateUserPassword(userId, request);
-        return ApiResponse.ok(result, "변경되었습니다.");
-    }
-
     @GetMapping("/users")
     @Operation(summary = "Get all users", description = "모든 유저 조회 API")
     public ResponseEntity<ApiResponse<List<GetAllUsersResponse>>> getAllUsers(){
