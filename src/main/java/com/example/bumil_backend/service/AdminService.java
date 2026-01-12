@@ -122,6 +122,7 @@ public class AdminService {
                         .userId(user.getId())
                         .email(user.getEmail())
                         .name(user.getName())
+                        .studentNum(user.getStudentNum())
                         .build()
                 )
                 .toList();
